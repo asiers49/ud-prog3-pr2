@@ -252,10 +252,14 @@ public class VentanaJuego extends JFrame {
 				try {
 					Thread.sleep(40);
 					if (teclapulsada[0] == true) {
-						mj.aplicarFuerza(miCoche.fuerzaAceleracionAdelante(),miCoche);
+						MundoJuego.aplicarFuerza(miCoche.fuerzaAceleracionAdelante(),miCoche);
+					}else if (teclapulsada[0]==false) {
+						MundoJuego.aplicarFuerza(0, miCoche);
 					}
 					if (teclapulsada[1] == true) {
-						miCoche.acelera(-5);
+						MundoJuego.aplicarFuerza(miCoche.fuerzaAceleracionaAtras(),miCoche);
+					}else if (teclapulsada[1]==false) {
+						MundoJuego.aplicarFuerza(0,miCoche);
 					}
 					if (teclapulsada[2] == true) {
 						miCoche.gira(+10);

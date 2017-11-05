@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.security.Timestamp;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 public class JLabelEstrella extends JLabel{
 	private static final long serialVersionUID = 1L;  // Para serialización
 	public static final int TAMANYO_ESTRELLA = 40;  // píxels (igual ancho que algo)
+	public static Timestamp t;
 	
 	/** Construye y devuelve el JLabel del coche con su gráfico y tamaño
 	 */

@@ -16,7 +16,7 @@ public class Coche {
 	static final double COEF_SUELO=15.5;
 	static final double COEF_AIRE=0.35;
 	static final int FB_DEL=2000;
-	static final int FB_ATRAS=1000;
+	static final int FB_ATRAS=-1000;
 	
 	
 	// Constructores
@@ -85,8 +85,8 @@ public class Coche {
 	/** Cambia la velocidad actual del coche
 	 * @param aceleracion	Incremento/decremento de la velocidad en pixels/segundo
 	 */
-	public void acelera( double aceleracion ) {
-		miVelocidad = miVelocidad + aceleracion;
+	public void acelera( double aceleracion, double tiempo) {
+		miVelocidad = miVelocidad + (aceleracion*tiempo);
 	}
 	
 	/** Cambia la dirección actual del coche
@@ -124,26 +124,15 @@ public class Coche {
 		 }
 	
 	public double fuerzaAceleracionaAtras() {
-		 if (miVelocidad>=250) return FB_ATRAS;
+		 if (miVelocidad>=250) return FB_ATRAS*0.85;
 		 else if (miVelocidad>=0)
-		 return FB_ATRAS*(-miVelocidad/250*0.55+0.3);
+		 return FB_ATRAS*(miVelocidad/250*0.55+0.3);
 		 else if (miVelocidad>=-200)
-		 return FB_ATRAS*(miVelocidad/200*0.7+0.3);
+		 return FB_ATRAS*(-miVelocidad/200*0.7+0.3);
 		 else if (miVelocidad>=-350)
 		 return FB_ATRAS;
 		 else return FB_ATRAS*(-(miVelocidad+500)/250);
 		 }
 	
-		 @Test
-		 public void testFuerzaAceleracionAtras() {
-		 double[] tablaVel = { -500, -425, -300, -250, -200, -100, 0, 125, 250, 500,
-		1100 };
-		 double[] tablaFuerza = { 0, 0.5, 1, 1, 1, 0.65, 0.3, 0.575, 0.85, 0.85,
-		0.85 };
-		 for (int i=0;i<tablaVel.length;i++) {
-//		 c.setVelocidad( tablaVel[i] );
-//		 assertEquals( "Velocidad " + tablaVel[i], tablaFuerza[i]*Coche.FB_ATRAS,
-//		c.fuerzaAceleracionAtras(), 0.0000001 );
-		 }
-		 } 
+
 }
