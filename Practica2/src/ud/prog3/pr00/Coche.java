@@ -1,5 +1,7 @@
 package ud.prog3.pr00;
 
+import org.junit.Test;
+
 /** Clase para definir instancias lógicas de coches con posición, dirección y velocidad.
  * @author Andoni Eguíluz
  * Facultad de Ingeniería - Universidad de Deusto (2014)
@@ -10,6 +12,12 @@ public class Coche {
 	protected double posX;  // Posición en X (horizontal)
 	protected double posY;  // Posición en Y (vertical)
 	protected String piloto;  // Nombre de piloto
+	static final int MASA =1;
+	static final double COEF_SUELO=15.5;
+	static final double COEF_AIRE=0.35;
+	static final int FB_DEL=2000;
+	static final int FB_ATRAS=1000;
+	
 	
 	// Constructores
 	
@@ -103,4 +111,39 @@ public class Coche {
 		return piloto + " (" + posX + "," + posY + ") - " +
 			   "Velocidad: " + miVelocidad + " ## Dirección: " + miDireccionActual; 
 	}
+	
+	public double fuerzaAceleracionAdelante() {
+		 if (miVelocidad<=-150) return FB_DEL;
+		 else if (miVelocidad<=0)
+		 return FB_DEL*(-miVelocidad/150*0.5+0.5);
+		 else if (miVelocidad<=250)
+		 return FB_DEL*(miVelocidad/250*0.5+0.5);
+		 else if (miVelocidad<=750)
+		 return FB_DEL;
+		 else return FB_DEL*(-(miVelocidad-1000)/250);
+		 }
+	
+	public double fuerzaAceleracionaAtras() {
+		 if (miVelocidad>=250) return FB_ATRAS;
+		 else if (miVelocidad>=0)
+		 return FB_ATRAS*(-miVelocidad/250*0.55+0.3);
+		 else if (miVelocidad>=-200)
+		 return FB_ATRAS*(miVelocidad/200*0.7+0.3);
+		 else if (miVelocidad>=-350)
+		 return FB_ATRAS;
+		 else return FB_ATRAS*(-(miVelocidad+500)/250);
+		 }
+	
+		 @Test
+		 public void testFuerzaAceleracionAtras() {
+		 double[] tablaVel = { -500, -425, -300, -250, -200, -100, 0, 125, 250, 500,
+		1100 };
+		 double[] tablaFuerza = { 0, 0.5, 1, 1, 1, 0.65, 0.3, 0.575, 0.85, 0.85,
+		0.85 };
+		 for (int i=0;i<tablaVel.length;i++) {
+//		 c.setVelocidad( tablaVel[i] );
+//		 assertEquals( "Velocidad " + tablaVel[i], tablaFuerza[i]*Coche.FB_ATRAS,
+//		c.fuerzaAceleracionAtras(), 0.0000001 );
+		 }
+		 } 
 }
