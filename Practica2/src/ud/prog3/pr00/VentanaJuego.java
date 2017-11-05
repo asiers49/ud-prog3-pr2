@@ -3,6 +3,7 @@ package ud.prog3.pr00;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -19,95 +20,75 @@ public class VentanaJuego extends JFrame {
 	MiRunnable miHilo = null; // Hilo del bucle principal de juego
 	boolean[] teclapulsada;
 	MundoJuego mj;
+	private ArrayList<EstrellaJuego> listaestrellas1;
 
 	/**
 	 * Constructor de la ventana de juego. Crea y devuelve la ventana inicializada
 	 * sin coches dentro
 	 */
 	public VentanaJuego() {
-		mj=new MundoJuego();
+		mj = new MundoJuego();
 		// Liberación de la ventana por defecto al cerrar
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// Creación contenedores y componentes
 		pPrincipal = new JPanel();
 		JPanel pBotonera = new JPanel();
-//		JButton bAcelerar = new JButton("Acelera");
-//		JButton bFrenar = new JButton("Frena");
-//		JButton bGiraIzq = new JButton("Gira Izq.");
-//		JButton bGiraDer = new JButton("Gira Der.");
+		// JButton bAcelerar = new JButton("Acelera");
+		// JButton bFrenar = new JButton("Frena");
+		// JButton bGiraIzq = new JButton("Gira Izq.");
+		// JButton bGiraDer = new JButton("Gira Der.");
 		// Formato y layouts
 		pPrincipal.setLayout(null);
 		pPrincipal.setBackground(Color.white);
 		// Añadido de componentes a contenedores
 		add(pPrincipal, BorderLayout.CENTER);
-//		pBotonera.add(bAcelerar);
-//		pBotonera.add(bFrenar);
-//		pBotonera.add(bGiraIzq);
-//		pBotonera.add(bGiraDer);
+		// pBotonera.add(bAcelerar);
+		// pBotonera.add(bFrenar);
+		// pBotonera.add(bGiraIzq);
+		// pBotonera.add(bGiraDer);
 		add(pBotonera, BorderLayout.SOUTH);
-		JLabel lMensaje=new JLabel("Puntuacion: ");
+		JLabel lMensaje = new JLabel("Puntuacion: ");
 		pBotonera.add(lMensaje);
 		// Formato de ventana
 		setSize(700, 500);
 		// Escuchadores de botones
-//		bAcelerar.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				if (miCoche.getVelocidad() == 0)
-//					miCoche.acelera(+5);
-//				else
-//					miCoche.acelera(+5);
-//				// miCoche.acelera( miCoche.getVelocidad()*0.10 ); // para acelerar progresivo
-//				System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
-//			}
-//		});
-//		bFrenar.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				miCoche.acelera(-5);
-//				System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
-//			}
-//		});
-//		bGiraIzq.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				miCoche.gira(+10);
-//				System.out.println("Nueva dirección de coche: " + miCoche.getDireccionActual());
-//			}
-//		});
-//		bGiraDer.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				miCoche.gira(-10);
-//				System.out.println("Nueva dirección de coche: " + miCoche.getDireccionActual());
-//			}
-//		});
-		// Añadido para que también se gestione por teclado con el KeyListener
-		teclapulsada = new boolean[4];
-		// pPrincipal.addKeyListener(new KeyAdapter() {
+		// bAcelerar.addActionListener(new ActionListener() {
 		// @Override
-		// public void keyPressed(KeyEvent e) {
-		// switch (e.getKeyCode()) {
-		// case KeyEvent.VK_UP: {
-		// teclapulsada[0] = true;
-		// break;
-		// }
-		// case KeyEvent.VK_DOWN: {
-		// miCoche.acelera(-5);
-		// break;
-		// }
-		// case KeyEvent.VK_LEFT: {
-		// miCoche.gira(+10);
-		// break;
-		// }
-		// case KeyEvent.VK_RIGHT: {
-		// miCoche.gira(-10);
-		// break;
-		// }
-		// }
+		// public void actionPerformed(ActionEvent e) {
+		// if (miCoche.getVelocidad() == 0)
+		// miCoche.acelera(+5);
+		// else
+		// miCoche.acelera(+5);
+		// // miCoche.acelera( miCoche.getVelocidad()*0.10 ); // para acelerar
+		// progresivo
+		// System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
 		// }
 		// });
-
+		// bFrenar.addActionListener(new ActionListener() {
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// miCoche.acelera(-5);
+		// System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
+		// }
+		// });
+		// bGiraIzq.addActionListener(new ActionListener() {
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// miCoche.gira(+10);
+		// System.out.println("Nueva dirección de coche: " +
+		// miCoche.getDireccionActual());
+		// }
+		// });
+		// bGiraDer.addActionListener(new ActionListener() {
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// miCoche.gira(-10);
+		// System.out.println("Nueva dirección de coche: " +
+		// miCoche.getDireccionActual());
+		// }
+		// });
+		// Añadido para que también se gestione por teclado con el KeyListener
+		teclapulsada = new boolean[4];
 		pPrincipal.addKeyListener(new KeyListener() {
 
 			@Override
@@ -248,18 +229,19 @@ public class VentanaJuego extends JFrame {
 					dir = 360 - dir; // Rebote espejo sobre OX (complementario de 360)
 					miCoche.setDireccionActual(dir);
 				}
+
 				// Dormir el hilo 40 milisegundos
 				try {
 					Thread.sleep(40);
 					if (teclapulsada[0] == true) {
-						MundoJuego.aplicarFuerza(miCoche.fuerzaAceleracionAdelante(),miCoche);
-					}else if (teclapulsada[0]==false) {
+						MundoJuego.aplicarFuerza(miCoche.fuerzaAceleracionAdelante(), miCoche);
+					} else if (teclapulsada[0] == false) {
 						MundoJuego.aplicarFuerza(0, miCoche);
 					}
 					if (teclapulsada[1] == true) {
-						MundoJuego.aplicarFuerza(miCoche.fuerzaAceleracionaAtras(),miCoche);
-					}else if (teclapulsada[1]==false) {
-						MundoJuego.aplicarFuerza(0,miCoche);
+						MundoJuego.aplicarFuerza(miCoche.fuerzaAceleracionaAtras(), miCoche);
+					} else if (teclapulsada[1] == false) {
+						MundoJuego.aplicarFuerza(0, miCoche);
 					}
 					if (teclapulsada[2] == true) {
 						miCoche.gira(+10);
@@ -270,7 +252,6 @@ public class VentanaJuego extends JFrame {
 				} catch (Exception e) {
 				}
 
-				
 			}
 		}
 

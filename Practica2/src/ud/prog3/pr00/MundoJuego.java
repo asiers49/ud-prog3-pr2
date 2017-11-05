@@ -1,11 +1,10 @@
 package ud.prog3.pr00;
 
-
 import java.util.ArrayList;
 
 public class MundoJuego {
 
-	private ArrayList<EstrellaJuego> listaestrellas;
+	private static ArrayList<EstrellaJuego> listaestrellas;
 
 	public static double calcFuerzaRozamiento(double masa, double coefRozSuelo, double coefRozAire, double vel) {
 		double fuerzaRozamientoAire = coefRozAire * (-vel); // En contra del movimiento
@@ -34,14 +33,24 @@ public class MundoJuego {
 
 	}
 
-	public EstrellaJuego creaEstrella() {
+	public static void creaEstrella() {
+
 		EstrellaJuego estrella = new EstrellaJuego();
 		estrella.setMigrafico(new JLabelEstrella());
 		estrella.setT(System.currentTimeMillis());
-		listaestrellas.add(estrella);
 
-		return estrella;
+		if (listaestrellas == null) {
+			listaestrellas.add(estrella);
+		} else if (listaestrellas.get(listaestrellas.size() - 1).getT() + 0.0012 <= System.currentTimeMillis()) {
+			listaestrellas.add(estrella);
+		}
+	}
 
-		// }
+	public static ArrayList<EstrellaJuego> getListaestrellas() {
+		return listaestrellas;
+	}
+
+	public static void setListaestrellas(ArrayList<EstrellaJuego> listaestrellas) {
+		MundoJuego.listaestrellas = listaestrellas;
 	}
 }

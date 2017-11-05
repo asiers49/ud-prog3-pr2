@@ -16,7 +16,7 @@ public class EstrellaJuego {
 	}
 	
 	
-	public static long getT() {
+	public long getT() {
 		return t;
 	}
 
