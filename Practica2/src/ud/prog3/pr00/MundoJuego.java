@@ -1,11 +1,12 @@
 package ud.prog3.pr00;
 
+
 import java.util.ArrayList;
 
 public class MundoJuego {
 
-		private ArrayList<JLabelEstrella> listaestrellas;
-		
+	private ArrayList<EstrellaJuego> listaestrellas;
+
 	public static double calcFuerzaRozamiento(double masa, double coefRozSuelo, double coefRozAire, double vel) {
 		double fuerzaRozamientoAire = coefRozAire * (-vel); // En contra del movimiento
 		double fuerzaRozamientoSuelo = masa * coefRozSuelo * ((vel > 0) ? (-1) : 1); // Contra mvto
@@ -32,12 +33,15 @@ public class MundoJuego {
 		}
 
 	}
-	
-	public void creaEstrella() {
-		JLabelEstrella estrella= new JLabelEstrella();
-//		estrella.setPosicion( Math.random(), Math.random() );
-//		panel.add( miCoche.getGrafico() );  // Añade al panel visual
-//		miCoche.getGrafico().repaint();  // Refresca el dibujado del coche
-//	}
+
+	public EstrellaJuego creaEstrella() {
+		EstrellaJuego estrella = new EstrellaJuego();
+		estrella.setMigrafico(new JLabelEstrella());
+		estrella.setT(System.currentTimeMillis());
+		listaestrellas.add(estrella);
+
+		return estrella;
+
+		// }
 	}
 }
