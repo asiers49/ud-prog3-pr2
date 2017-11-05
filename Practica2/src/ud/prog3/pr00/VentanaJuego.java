@@ -18,66 +18,70 @@ public class VentanaJuego extends JFrame {
 	CocheJuego miCoche; // Coche del juego
 	MiRunnable miHilo = null; // Hilo del bucle principal de juego
 	boolean[] teclapulsada;
+	MundoJuego mj;
 
 	/**
 	 * Constructor de la ventana de juego. Crea y devuelve la ventana inicializada
 	 * sin coches dentro
 	 */
 	public VentanaJuego() {
+		mj=new MundoJuego();
 		// Liberación de la ventana por defecto al cerrar
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// Creación contenedores y componentes
 		pPrincipal = new JPanel();
 		JPanel pBotonera = new JPanel();
-		JButton bAcelerar = new JButton("Acelera");
-		JButton bFrenar = new JButton("Frena");
-		JButton bGiraIzq = new JButton("Gira Izq.");
-		JButton bGiraDer = new JButton("Gira Der.");
+//		JButton bAcelerar = new JButton("Acelera");
+//		JButton bFrenar = new JButton("Frena");
+//		JButton bGiraIzq = new JButton("Gira Izq.");
+//		JButton bGiraDer = new JButton("Gira Der.");
 		// Formato y layouts
 		pPrincipal.setLayout(null);
 		pPrincipal.setBackground(Color.white);
 		// Añadido de componentes a contenedores
 		add(pPrincipal, BorderLayout.CENTER);
-		pBotonera.add(bAcelerar);
-		pBotonera.add(bFrenar);
-		pBotonera.add(bGiraIzq);
-		pBotonera.add(bGiraDer);
+//		pBotonera.add(bAcelerar);
+//		pBotonera.add(bFrenar);
+//		pBotonera.add(bGiraIzq);
+//		pBotonera.add(bGiraDer);
 		add(pBotonera, BorderLayout.SOUTH);
+		JLabel lMensaje=new JLabel("Puntuacion: ");
+		pBotonera.add(lMensaje);
 		// Formato de ventana
 		setSize(700, 500);
 		// Escuchadores de botones
-		bAcelerar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (miCoche.getVelocidad() == 0)
-					miCoche.acelera(+5);
-				else
-					miCoche.acelera(+5);
-				// miCoche.acelera( miCoche.getVelocidad()*0.10 ); // para acelerar progresivo
-				System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
-			}
-		});
-		bFrenar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				miCoche.acelera(-5);
-				System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
-			}
-		});
-		bGiraIzq.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				miCoche.gira(+10);
-				System.out.println("Nueva dirección de coche: " + miCoche.getDireccionActual());
-			}
-		});
-		bGiraDer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				miCoche.gira(-10);
-				System.out.println("Nueva dirección de coche: " + miCoche.getDireccionActual());
-			}
-		});
+//		bAcelerar.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (miCoche.getVelocidad() == 0)
+//					miCoche.acelera(+5);
+//				else
+//					miCoche.acelera(+5);
+//				// miCoche.acelera( miCoche.getVelocidad()*0.10 ); // para acelerar progresivo
+//				System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
+//			}
+//		});
+//		bFrenar.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				miCoche.acelera(-5);
+//				System.out.println("Nueva velocidad de coche: " + miCoche.getVelocidad());
+//			}
+//		});
+//		bGiraIzq.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				miCoche.gira(+10);
+//				System.out.println("Nueva dirección de coche: " + miCoche.getDireccionActual());
+//			}
+//		});
+//		bGiraDer.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				miCoche.gira(-10);
+//				System.out.println("Nueva dirección de coche: " + miCoche.getDireccionActual());
+//			}
+//		});
 		// Añadido para que también se gestione por teclado con el KeyListener
 		teclapulsada = new boolean[4];
 		// pPrincipal.addKeyListener(new KeyAdapter() {
@@ -248,7 +252,7 @@ public class VentanaJuego extends JFrame {
 				try {
 					Thread.sleep(40);
 					if (teclapulsada[0] == true) {
-						miCoche.acelera(5);
+						mj.aplicarFuerza(miCoche.fuerzaAceleracionAdelante(),miCoche);
 					}
 					if (teclapulsada[1] == true) {
 						miCoche.acelera(-5);

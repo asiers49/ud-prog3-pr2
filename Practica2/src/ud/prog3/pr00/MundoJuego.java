@@ -20,12 +20,17 @@ public class MundoJuego {
 			// No hay fuerza, solo se aplica el rozamiento
 			double velAntigua = coche.getVelocidad();
 //			coche.acelera(aceleracion, 0.04);
+			coche.acelera(aceleracion);
 			if (velAntigua >= 0 && coche.getVelocidad() < 0 || velAntigua <= 0 && coche.getVelocidad() > 0) {
 				coche.setVelocidad(0); // Si se está frenando, se para (no anda al revés)
 			}
 		} else {
-//			coche.acelera(aceleracion, 0.04);
+			coche.acelera(aceleracion);
 		}
 
+	}
+	
+	public void creaEstrella() {
+		
 	}
 }
